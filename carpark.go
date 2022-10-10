@@ -33,7 +33,7 @@ func (p *parkingLot) emptyFullCheck() {
 		// equalise the total slots and the occupied slots
 		p.ocupiedSpots = p.totalSpots
 	}
-	// reset ocupied slots if we remove more tahn total number of cars
+	// reset ocupied slots if we remove more than total number of cars
 	if p.ocupiedSpots < 0 {
 		fmt.Println("We can't remove more cars than the ocupied spots!")
 		p.ocupiedSpots = 0
@@ -93,5 +93,3 @@ func main() {
 	fmt.Println("---")
 
 }
-
-/*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
