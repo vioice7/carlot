@@ -10,61 +10,61 @@ import (
 // 1 van can take only a van spot
 // we last add or first remove from non designated spaces
 
-type parkingLot struct {
-	carsNr              int
-	motorcyclesNr       int
-	vansNr              int
-	carSpots            int
-	motorcycleSpots     int
-	vanSpots            int
-	carRealSpots        int
-	motorcycleRealSpots int
-	vanRealSpots        int
+type ParkingLot struct {
+	CarsNr              int
+	MotorcyclesNr       int
+	VansNr              int
+	CarSpots            int
+	MotorcycleSpots     int
+	VanSpots            int
+	CarRealSpots        int
+	MotorcycleRealSpots int
+	VanRealSpots        int
 }
 
-func (p *parkingLot) totalSlots() int {
-	return p.carSpots + p.motorcycleSpots + p.vanSpots
+func (p *ParkingLot) TotalSpots() int {
+	return p.CarSpots + p.MotorcycleSpots + p.VanSpots
 }
 
-func (p *parkingLot) addMotorcycle() {
-	if p.motorcyclesNr < p.motorcycleSpots {
-		p.motorcyclesNr++
+func (p *ParkingLot) AddMotorcycle() {
+	if p.MotorcyclesNr < p.MotorcycleSpots {
+		p.MotorcyclesNr++
 		fmt.Println("Added a motorcycle")
-	} else if p.carsNr < p.carSpots {
-		p.motorcyclesNr++
-		fmt.Println("Added a motorcycle")
-
-		p.carSpots--
-		p.motorcycleSpots++
-	} else if p.vansNr < p.vanSpots {
-		p.motorcyclesNr++
+	} else if p.CarsNr < p.CarSpots {
+		p.MotorcyclesNr++
 		fmt.Println("Added a motorcycle")
 
-		p.vanSpots--
-		p.motorcycleSpots++
+		p.CarSpots--
+		p.MotorcycleSpots++
+	} else if p.VansNr < p.VanSpots {
+		p.MotorcyclesNr++
+		fmt.Println("Added a motorcycle")
+
+		p.VanSpots--
+		p.MotorcycleSpots++
 	} else {
 		fmt.Println("Can't add any motorcycles! (parking lot full)")
 	}
 }
 
-func (p *parkingLot) removeMotorcycle() {
-	if p.motorcyclesNr > 0 {
-		if p.motorcyclesNr > p.motorcycleRealSpots {
-			if p.vanSpots < p.vanRealSpots {
-				p.motorcyclesNr--
+func (p *ParkingLot) RemoveMotorcycle() {
+	if p.MotorcyclesNr > 0 {
+		if p.MotorcyclesNr > p.MotorcycleRealSpots {
+			if p.VanSpots < p.VanRealSpots {
+				p.MotorcyclesNr--
 				fmt.Println("Motorcycle removed")
 
-				p.motorcycleSpots--
-				p.vanSpots++
-			} else if p.carSpots < p.carRealSpots {
-				p.motorcyclesNr--
+				p.MotorcycleSpots--
+				p.VanSpots++
+			} else if p.CarSpots < p.CarRealSpots {
+				p.MotorcyclesNr--
 				fmt.Println("Motorcycle removed")
 
-				p.motorcycleSpots--
-				p.carSpots++
+				p.MotorcycleSpots--
+				p.CarSpots++
 			}
 		} else {
-			p.motorcyclesNr--
+			p.MotorcyclesNr--
 			fmt.Println("Motorcycle removed")
 		}
 	} else {
@@ -72,33 +72,33 @@ func (p *parkingLot) removeMotorcycle() {
 	}
 }
 
-func (p *parkingLot) addCar() {
-	if p.carsNr < p.carSpots {
-		p.carsNr++
+func (p *ParkingLot) AddCar() {
+	if p.CarsNr < p.CarSpots {
+		p.CarsNr++
 		fmt.Println("Added a car")
-	} else if p.vansNr < p.vanSpots {
-		p.carsNr++
+	} else if p.VansNr < p.VanSpots {
+		p.CarsNr++
 		fmt.Println("Added a car")
 
-		p.vanSpots--
-		p.carSpots++
+		p.VanSpots--
+		p.CarSpots++
 	} else {
 		fmt.Println("Can't add any cars! (parking lot full)")
 	}
 }
 
-func (p *parkingLot) removeCar() {
-	if p.carsNr > 0 {
-		if p.carsNr > p.carRealSpots {
-			if p.vanSpots < p.vanRealSpots {
-				p.carsNr--
+func (p *ParkingLot) RemoveCar() {
+	if p.CarsNr > 0 {
+		if p.CarsNr > p.CarRealSpots {
+			if p.VanSpots < p.VanRealSpots {
+				p.CarsNr--
 				fmt.Println("Car removed")
 
-				p.vanSpots++
-				p.carSpots--
+				p.VanSpots++
+				p.CarSpots--
 			}
 		} else {
-			p.carsNr--
+			p.CarsNr--
 			fmt.Println("Car removed")
 		}
 
@@ -107,26 +107,26 @@ func (p *parkingLot) removeCar() {
 	}
 }
 
-func (p *parkingLot) addVan() {
-	if p.vansNr < p.vanSpots {
-		p.vansNr++
+func (p *ParkingLot) AddVan() {
+	if p.VansNr < p.VanSpots {
+		p.VansNr++
 		fmt.Println("Added a van")
 	} else {
 		fmt.Println("Can't add any vans! (parking lot full)")
 	}
 }
 
-func (p *parkingLot) removeVan() {
-	if p.vansNr > 0 {
-		p.vansNr--
+func (p *ParkingLot) RemoveVan() {
+	if p.VansNr > 0 {
+		p.VansNr--
 		fmt.Println("Van removed")
 	} else {
 		fmt.Println("There are no vans in the parking lot!")
 	}
 }
 
-func (p *parkingLot) checkEach() (int, int, int, int, int, int, int, int, int) {
-	return p.carsNr, p.motorcyclesNr, p.vansNr, p.carSpots, p.motorcycleSpots, p.vanSpots, p.carRealSpots, p.motorcycleRealSpots, p.vanRealSpots
+func (p *ParkingLot) CheckEach() (int, int, int, int, int, int, int, int, int) {
+	return p.CarsNr, p.MotorcyclesNr, p.VansNr, p.CarSpots, p.MotorcycleSpots, p.VanSpots, p.CarRealSpots, p.MotorcycleRealSpots, p.VanRealSpots
 }
 
 func main() {
@@ -164,10 +164,10 @@ func main() {
 	}
 
 	// define the lot
-	lot := parkingLot{carNr, mcycNr, vanNr, carSp, mcycSp, vanSp, carSp, mcycSp, vanSp}
+	lot := ParkingLot{carNr, mcycNr, vanNr, carSp, mcycSp, vanSp, carSp, mcycSp, vanSp}
 
 	// print total car spots and initially ocupied spots
-	fmt.Println("Total parking slots:", lot.totalSlots())
+	fmt.Println("Total parking spots:", lot.TotalSpots())
 	// define a string that takes a text command
 	var cmd string
 
@@ -177,39 +177,39 @@ func main() {
 		fmt.Scanln(&cmd)
 
 		if cmd == "total" {
-			fmt.Println("Total parking slots:", lot.totalSlots())
+			fmt.Println("Total parking spots:", lot.TotalSpots())
 		}
 
 		if cmd == "check" {
-			carNr0, mcycNr0, vanNr0, carSp0, mcycSp0, vanSp0, carReSp0, mcycReSp0, vanReSp0 := lot.checkEach()
+			carNr0, mcycNr0, vanNr0, carSp0, mcycSp0, vanSp0, carReSp0, mcycReSp0, vanReSp0 := lot.CheckEach()
 
-			fmt.Println("Motorcycle numbers:", mcycNr0, "Temporary spots that take motorcycles:", mcycSp0, "Motorcycle real spots:", mcycReSp0)
-			fmt.Println("Car numbers:       ", carNr0, "Temporary spots that take cars:       ", carSp0, "Car real spots:       ", carReSp0)
-			fmt.Println("Van numbers:       ", vanNr0, "Temporary spots that take vans:       ", vanSp0, "Van real spots:       ", vanReSp0)
+			fmt.Println("Motorcycle numbers:", mcycNr0, " | Temporary motorcycle spots:", (mcycSp0 - mcycReSp0), " | Motorcycle real spots:", mcycReSp0)
+			fmt.Println("Car numbers:       ", carNr0, " | Temporary car spots:       ", (carSp0 - carReSp0), " | Car real spots:       ", carReSp0)
+			fmt.Println("Van numbers:       ", vanNr0, " | Temporary van spots:       ", (vanSp0 - vanReSp0), " | Van real spots:       ", vanReSp0)
 		}
 
 		if cmd == "addmoto" {
-			lot.addMotorcycle()
+			lot.AddMotorcycle()
 		}
 
 		if cmd == "remmoto" {
-			lot.removeMotorcycle()
+			lot.RemoveMotorcycle()
 		}
 
 		if cmd == "addcar" {
-			lot.addCar()
+			lot.AddCar()
 		}
 
 		if cmd == "remcar" {
-			lot.removeCar()
+			lot.RemoveCar()
 		}
 
 		if cmd == "addvan" {
-			lot.addVan()
+			lot.AddVan()
 		}
 
 		if cmd == "remvan" {
-			lot.removeVan()
+			lot.RemoveVan()
 		}
 
 		if cmd == "exit" {
