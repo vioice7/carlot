@@ -116,9 +116,9 @@ func TestParking(t *testing.T) {
 	// Cars spots (can take motorcycles or cars)
 	// Motorcycles spots (can take motorcycles only)
 	// Vans spots (can take motorcycles, cars or vans)
-	// Cars real spots (the number of designated cars spots)
-	// Motorcycles real spots (the number of designated cars motorcycles)
-	// Vans real spots (the number of designated cars vans)
+	// Cars real spots (the number of designated car spots)
+	// Motorcycles real spots (the number of designated motorcycle spots)
+	// Vans real spots (the number of designated van spots)
 	// ------------------------------------------------------------------
 
 	// want: []int {CarsNr, MotorcyclesNr, VanNr}
