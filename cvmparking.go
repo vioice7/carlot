@@ -4,11 +4,14 @@ import (
 	"fmt"
 )
 
+// ------------------------------------------------------
 // Assumptions
+// ------------------------------------------------------
 // 1 motorcycle can take a motorcycle, car or van spot
 // 1 car can take a car or van spot
 // 1 van can take only a van spot
 // we last add or first remove from non designated spaces
+// ------------------------------------------------------
 
 type ParkingLot struct {
 	CarsNr              int
