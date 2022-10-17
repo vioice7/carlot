@@ -133,6 +133,8 @@ func TestParking(t *testing.T) {
 
 		fmt.Println("--------------------- Test nr:", v+1, "---------------------")
 
+		// --- the add/remove acctions on the parking lot (each action adds or removes a certain automobile) ---
+
 		// we add a car
 		tc.lot.AddCar()
 		// we remove a motorcycle
@@ -141,6 +143,8 @@ func TestParking(t *testing.T) {
 		tc.lot.AddVan()
 		// we remove a van
 		tc.lot.RemoveVan()
+
+		// ---
 
 		// checking car, moto and van number values
 		gotCar, gotMoto, gotVan := tc.lot.CarsNr, tc.lot.MotorcyclesNr, tc.lot.VansNr
@@ -151,6 +155,57 @@ func TestParking(t *testing.T) {
 
 		if gotMoto != tc.want[1] {
 			t.Errorf("got %v motorcycles  want %v motorcycles", gotMoto, tc.want[1])
+		}
+
+		if gotVan != tc.want[2] {
+			t.Errorf("got %v vans want %v vans", gotVan, tc.want[2])
+		}
+	}
+
+}
+
+func TestParkingLot(t *testing.T) {
+	type test struct {
+		lot  ParkingLot
+		want []int
+	}
+	// parking lot structure {CarNr, MotoNr, VanNr, CarSpots, MotoSpots, VanSpots, CarRealSpots, MotoRealSpots, VanRealSpots}
+	// want: []int {CarsNr, MotorcyclesNr, VanNr}
+	tests := []test{
+		{lot: ParkingLot{1, 1, 1, 2, 2, 2, 2, 2, 2}, want: []int{3, 0, 0}},
+		{lot: ParkingLot{1, 2, 2, 2, 4, 6, 2, 4, 6}, want: []int{3, 1, 1}},
+		{lot: ParkingLot{2, 2, 2, 3, 3, 3, 3, 3, 3}, want: []int{4, 1, 1}},
+		{lot: ParkingLot{1, 0, 0, 1, 2, 1, 1, 2, 1}, want: []int{2, 0, 0}},
+		{lot: ParkingLot{1, 2, 4, 3, 5, 7, 3, 5, 7}, want: []int{3, 1, 3}},
+		{lot: ParkingLot{3, 3, 3, 3, 5, 7, 3, 5, 7}, want: []int{5, 2, 2}},
+	}
+
+	for v, tc := range tests {
+
+		fmt.Println("--------------------- Test nr:", v+1, "---------------------")
+
+		// --- the add/remove acctions on the parking lot (each action adds or removes a certain automobile) ---
+
+		// we add a car
+		tc.lot.AddCar()
+		// we add a car
+		tc.lot.AddCar()
+		// we remove a motorcycle
+		tc.lot.RemoveMotorcycle()
+		// we remove a van
+		tc.lot.RemoveVan()
+
+		// ---
+
+		// checking car, moto and van number values
+		gotCar, gotMoto, gotVan := tc.lot.CarsNr, tc.lot.MotorcyclesNr, tc.lot.VansNr
+
+		if gotCar != tc.want[0] {
+			t.Errorf("got %v cars want %v cars", gotCar, tc.want[0])
+		}
+
+		if gotMoto != tc.want[1] {
+			t.Errorf("got %v motorcycles want %v motorcycles", gotMoto, tc.want[1])
 		}
 
 		if gotVan != tc.want[2] {
